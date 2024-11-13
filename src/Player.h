@@ -25,6 +25,8 @@ public:
 	~Player();
 	void update(float dt);
 	bool initialise();
+	void handleInput(InputData input) { m_pState->handleInput(input, *this); };
+	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 	void resolveCollision(Collider *col);
 	void setMovement(sf::Vector2f movement);
@@ -33,11 +35,9 @@ public:
 	void setMoving(bool state) { m_isMoving = state; };
 	void setSpeed(float value) { m_playerSpeed += value; };
 	void setFireRate(float value) { m_fireRate += value; };
-	void handleInput(InputData input) { m_pState->handleInput(input, *this); };
 	void setDirection(float value) { m_direction = value; };
 	void setMaxHealth(float value) { m_playerMaxHealth = value; };
 	void setIsDead(bool value) { m_isKilled = value; };
-	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 	bool getIdle() const { return m_isIdle; };
 	bool getIsDead() const { return m_isKilled; };
@@ -46,7 +46,7 @@ public:
 	float getFireRate() const { return m_fireRate; };
 	float getSpeed() const { return m_playerSpeed; };
 	float getMaxHealth() const { return m_playerMaxHealth; };
-	Weapon *getWeapon() const { return m_vWeapons[0].get(); };
+	const std::vector<std::unique_ptr<Weapon>> &getWeapons() const { return m_vWeapons; };
 	LevelSystem *getLevel() const { return m_pLvlSys.get(); };
 
 private:

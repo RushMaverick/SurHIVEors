@@ -24,11 +24,16 @@ void Vampire::update(float deltaTime)
 		return;
 
 	Player *pPlayer = m_pGame->getPlayer();
+	const std::vector<std::unique_ptr<Weapon>> &pWeapons = pPlayer->getWeapons();
 
-	if (collidesWith(pPlayer->getWeapon()) && pPlayer->getWeapon()->getDrawState())
+	for (auto &wpn : pWeapons)
 	{
-		setIsKilled(true);
-		return;
+
+		if (collidesWith(wpn.get()) && wpn->getDrawState())
+		{
+			setIsKilled(true);
+			return;
+		}
 	}
 
 	if (collidesWith(pPlayer))

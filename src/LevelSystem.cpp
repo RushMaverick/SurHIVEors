@@ -44,7 +44,8 @@ void LevelSystem::update(const Player *player)
 	ss << "Player Health: (" << player->getHealth() << "/" << player->getMaxHealth() << ")\n";
 	ss << "Fire Rate: (" << player->getFireRate() << ")\n";
 	ss << "Player Speed: (" << player->getSpeed() << ")\n";
-	ss << "Player Weapon Level: (" << player->getWeapon()->getLevel() << ")\n";
+	// ss << "Player Lance Level: (" << player->getWeapons()[0]->getLevel() << ")\n";
+	// ss << "Player Bullet Level: (" << player->getWeapon()->getLevel() << ")\n";
 	ss << "Exp: (" << player->getLevel()->getExp() << ")\n";
 	ss << "Player Level: (" << player->getLevel()->getLevel() << ")\n";
 	ss << "Exp before next level: (" << player->getLevel()->getNextLvl() << ")\n";
@@ -67,6 +68,8 @@ void LevelSystem::draw(sf::RenderTarget &window, sf::RenderStates states) const
 void LevelSystem::levelUp()
 {
 	int upgrade = std::rand() % 4; // Selects a random upgrade
+	const std::vector<std::unique_ptr<Weapon>> &pWeapons = m_pPlayer->getWeapons();
+	int wpnUpgrade = std::rand() % WeaponAmount;
 
 	switch (upgrade)
 	{
@@ -81,7 +84,7 @@ void LevelSystem::levelUp()
 		break;
 
 	case WEAPONLVL:
-		m_pPlayer->getWeapon()->setLevel();
+		pWeapons[wpnUpgrade]->setLevel();
 		m_prevUpgrade.setString("Weapon Level Increased!");
 		break;
 

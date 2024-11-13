@@ -9,6 +9,7 @@ class Bullet : public Weapon
 {
 public:
 	Bullet(Player *player);
+	bool initialise();
 	void update(float dt) override;
 	virtual void draw(sf::RenderTarget &window, sf::RenderStates) const override;
 
@@ -23,6 +24,7 @@ private:
 	float m_wpnTimer;
 	float m_drawTimer;
 	float m_direction;
+	float m_bulletSpeed;
 
 	bool m_isActive;
 

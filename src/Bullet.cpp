@@ -17,6 +17,7 @@ Bullet::Bullet(Player *player)
 	setOrigin(sf::Vector2f(0.f, 0.f));
 }
 
+// Set direction of the bullet
 void Bullet::fire(float dt)
 {
 	m_wpnPos = m_pPlayer->getPosition();
@@ -29,26 +30,23 @@ void Bullet::update(float dt)
 	// // Update weapon timer for firing rate
 	m_wpnTimer -= dt;
 
-	// If time is up, make the weapon drawable again
+	// If time is up, make the weapon drawable again and fire the bullet
 	if (m_wpnTimer >= 0.f && !m_isDrawable)
 	{
 		fire(dt);
-		std::cout << "yo" << std::endl;
 		m_isDrawable = true;
-		m_wpnTimer = m_pPlayer->getFireRate(); // Reset the weapon timer
 	}
-
 	// Handle weapon drawing duration
 	if (m_isDrawable)
 	{
 		m_wpnPos.x += m_direction * 200.f * dt;
-		sf::Transformable::move(m_wpnPos);
 		m_drawTimer -= dt;
 		if (m_drawTimer <= 0.f)
 		{
 			m_isDrawable = false;
 			m_isActive = false;
 			m_drawTimer = 2.f;
+			m_wpnTimer = m_pPlayer->getFireRate(); // Reset the weapon timer
 		}
 	}
 }

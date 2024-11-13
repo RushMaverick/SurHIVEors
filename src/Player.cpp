@@ -12,7 +12,7 @@ Player::Player(Game *pGame)
 	  m_fireRate(3.f),
 	  m_playerPos(sf::Vector2f(0.f, 0.f)),
 	  m_playerSpeed(150.f),
-	  m_direction(1.f),
+	  m_direction(-1.f),
 	  m_playerMaxHealth(300.f),
 	  m_pLvlSys(std::make_unique<LevelSystem>(this, m_pGame)),
 	  m_pState(std::make_unique<IdleState>())
@@ -34,6 +34,7 @@ Player::~Player()
 bool Player::initialise()
 {
 	m_sprite.setTexture(*m_pGame->getPlayerTexture());
+	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2, m_sprite.getLocalBounds().height / 2);
 	m_sprite.setScale(3.5f, 3.5f);
 	setIsDead(false);
 	setPosition(ScreenWidth / 2, ScreenHeight / 2);
@@ -80,6 +81,7 @@ void Player::setMovement(sf::Vector2f movement)
 {
 	m_playerPos = movement;
 	m_sprite.setPosition(getPosition());
+	m_sprite.setScale(3.5f * (m_direction > 0 ? -1.0f : 1.0f), 3.5f);
 }
 
 // Changes the player's state, ensuring the old state is exited cleanly

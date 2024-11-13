@@ -40,21 +40,18 @@ void Lance::update(float dt)
 		}
 	}
 	// Update weapon position based on player direction
-	setPosition(sf::Vector2f(
-		m_pPlayer->getCenter().x - (m_pPlayer->getDirection() == -1 ? LanceWidth : 0.0f),
-		m_pPlayer->getCenter().y - LanceHeight / 2.0f));
+	sf::Vector2f weaponOffset = (m_pPlayer->getDirection() > 0) ? sf::Vector2f(15, -5) : sf::Vector2f(-15, -5);
+	setPosition(m_pPlayer->getPosition() + weaponOffset);
 }
 
 void Lance::draw(sf::RenderTarget &window, sf::RenderStates states) const
 {
 	sf::RectangleShape wpn(m_wpnSize);
-	sf::Vector2f offset((PlayerWidth / 2) + 10.f, PlayerHeight / 3.f);
+	sf::Vector2f weaponOffset = (m_pPlayer->getDirection() > 0) ? sf::Vector2f(15, -5) : sf::Vector2f(-15, -5);
 
 	wpn.setFillColor(m_color);
-	wpn.setPosition(sf::Vector2f(
-		m_pPlayer->getCenter().x - (m_pPlayer->getDirection() == -1 ? LanceWidth : 0.0f),
-		m_pPlayer->getCenter().y - LanceHeight / 2.0f));
-
+	wpn.setPosition(m_pPlayer->getPosition() + weaponOffset);
+	wpn.setScale(m_pPlayer->getDirection() > 0 ? 1.0f : -1.0f, 1.0f);
 	// Draw the weapon on the window
 	window.draw(wpn);
 }
