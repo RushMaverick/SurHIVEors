@@ -39,7 +39,7 @@ void Bullet::update(float dt)
 	// Handle weapon drawing duration
 	if (m_isDrawable)
 	{
-		m_wpnPos.x += m_direction * 200.f * dt;
+		m_wpnPos.x += m_direction * 100.f * dt;
 		m_drawTimer -= dt;
 		if (m_drawTimer <= 0.f)
 		{
@@ -49,6 +49,7 @@ void Bullet::update(float dt)
 			m_wpnTimer = m_pPlayer->getFireRate(); // Reset the weapon timer
 		}
 	}
+	setPosition(m_wpnPos);
 }
 
 void Bullet::draw(sf::RenderTarget &target, sf::RenderStates states) const
