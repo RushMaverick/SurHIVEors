@@ -67,9 +67,9 @@ void LevelSystem::draw(sf::RenderTarget &window, sf::RenderStates states) const
 // Levels up the player, applying a random upgrade and updating experience requirements
 void LevelSystem::levelUp()
 {
-	int upgrade = std::rand() % 4; // Selects a random upgrade
 	const std::vector<std::unique_ptr<Weapon>> &pWeapons = m_pPlayer->getWeapons();
 	int wpnUpgrade = std::rand() % WeaponAmount;
+	int upgrade = std::rand() % 4; // Selects a random upgrade
 
 	switch (upgrade)
 	{

@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Collider.h"
+#include "Health.h"
 
 class Game;
 
-class Vampire : public Collider
+class Vampire : public Collider, public Health
 {
 public:
 	Vampire(Game *game, sf::Vector2f position);
@@ -18,4 +19,5 @@ public:
 private:
 	Game *m_pGame;
 	bool m_isKilled = false;
+	float m_maxHealth;
 };

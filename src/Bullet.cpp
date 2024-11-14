@@ -21,7 +21,7 @@ Bullet::Bullet(Player *player)
 void Bullet::fire(float dt)
 {
 	m_wpnPos = m_pPlayer->getPosition();
-	m_direction = m_pPlayer->getDirection();
+	m_direction = -m_pPlayer->getDirection();
 }
 
 // Update logic for weapon state and position

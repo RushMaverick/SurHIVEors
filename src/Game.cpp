@@ -54,19 +54,19 @@ void Game::update(sf::RenderTarget &window, float dt)
 		m_pEvent->update(dt);
 		m_pPlayer->update(dt);
 
+		vampireSpawner(dt);
+
+		for (auto &temp : m_pVampires)
+		{
+			temp->update(dt);
+		}
+
 		if (m_pPlayer->getIsDead())
 		{
 			m_state = State::WAITING;
 			resetLevel();
 		}
 		break;
-	}
-
-	vampireSpawner(dt);
-
-	for (auto &temp : m_pVampires)
-	{
-		temp->update(dt);
 	}
 
 	// Clean up defeated vampires

@@ -19,16 +19,16 @@ Lance::Lance(Player *player)
 // Update logic for weapon state and position
 void Lance::update(float dt)
 {
+	sf::Vector2f weaponOffset = (m_pPlayer->getDirection() > 0) ? sf::Vector2f(15, -5) : sf::Vector2f(-15, -5);
 	// Update weapon timer for firing rate
 	m_wpnTimer -= dt;
 
 	// If time is up, make the weapon drawable again
-	if (m_wpnTimer <= 0.f)
+	if (m_wpnTimer <= 0.f && !m_isDrawable)
 	{
 		setDrawable(true);
 		m_wpnTimer = m_pPlayer->getFireRate();
 	}
-
 	// Handle weapon drawing duration
 	if (m_isDrawable)
 	{
@@ -40,7 +40,6 @@ void Lance::update(float dt)
 		}
 	}
 	// Update weapon position based on player direction
-	sf::Vector2f weaponOffset = (m_pPlayer->getDirection() > 0) ? sf::Vector2f(15, -5) : sf::Vector2f(-15, -5);
 	setPosition(m_pPlayer->getPosition() + weaponOffset);
 }
 
